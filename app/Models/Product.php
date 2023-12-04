@@ -15,13 +15,14 @@ class Product extends Model
         'description',
         'price',
         'quantity',
-        'image'
+        'image',
+        "category_id"
         // Otras propiedades que puedan ser relevantes para tus productos
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class); // Relación con categorías
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
 

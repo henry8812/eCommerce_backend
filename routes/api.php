@@ -25,17 +25,20 @@ use App\Http\Controllers\CategoryController;
 
     Route::post('/auth/login', [AuthController::class, 'login']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::middleware('jwt')->post('/auth/refresh', [AuthController::class, 'refresh']);
+    
 
     Route::get('/users', [UserController::class, 'index']);
-    Route::post('/users', [UserController::class, 'store']);
+    Route::middleware('jwt')->post('/users', [UserController::class, 'store']);
     Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::put('/users/{id}', [UserController::class, 'update']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::middleware('jwt')->put('/users/{id}', [UserController::class, 'update']);
+    Route::middleware('jwt')->put('/products/{id}', [ProductController::class, 'update']);
+    Route:: delete('/users/{id}', [UserController::class, 'destroy']);
     Route::get('/products', [ProductController::class, 'index']);
-    Route::post('/products', [ProductController::class, 'store']);
+    Route::middleware('jwt')->post('/products', [ProductController::class, 'store']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
-    Route::put('/products/{id}', [ProductController::class, 'update']);
-    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+    Route::middleware('jwt')->put('/products/{id}', [ProductController::class, 'update']);
+    Route::middleware('jwt')->delete('/products/{id}', [ProductController::class, 'destroy']);
     Route::get('/products', [ProductController ::class, 'getFilteredProducts'])->name('products.filtered');
     
     
